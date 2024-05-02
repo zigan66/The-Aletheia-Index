@@ -149,7 +149,7 @@ def serialize_features_to_json(df, output_json_path):
         'scaled_readability', 'scaled_headline_relevance','topic_score'
     ]
 
-    # Prepare data for JSON format
+    # Prepare data for JSON
     json_data = {
         "instances": [
             {key: instance[key] for key in keys_to_include if key in instance}
