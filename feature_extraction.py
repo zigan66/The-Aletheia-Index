@@ -1,4 +1,4 @@
-# adjust the input and output file location before run the code
+# adjust input and output file location before run the code
 
 import spacy
 from scipy.sparse import hstack
