@@ -1,15 +1,21 @@
 # for testing you can use : curl -X POST http://127.0.0.1:5000/predict -H "Content-Type: application/json" --data-binary @file name.json -v
 # Set your Google Cloud credentials environment variable 
 
-from flask import Flask, request, jsonify
+from flask import Flask, render_template, request, jsonify
 import subprocess
 import json
 import os
 import csv
+from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
 
+@app.route('/', methods=['GET'])
+def serve_index():
+   return render_template('index.html')
+
 @app.route('/scrap', methods=['POST'])
+@cross_origin
 def scrap():
     try:
         url = request.json.get('url')
