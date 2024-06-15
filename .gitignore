@@ -1,2 +1,8 @@
 experiemts/
 venv/*
+**/__pycache__/*
+__pycache__/*
+* copy.*
+articlescraper/article.json
+articles.json
+1000.csv

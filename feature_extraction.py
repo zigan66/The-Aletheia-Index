@@ -125,6 +125,7 @@ def extract_features(row):
             'headline_relevance': relevance,
             'topic_score': topic_score # Add topic score to the features
         }
+        # print("Banana features", features)
         return pd.Series(features)
     except Exception as e:
         print(f"An error occurred while processing text: {e}")
@@ -136,6 +137,7 @@ def normalize_features(df, feature_names):
         max_value = df[feature].max()
         min_value = df[feature].min()
         df[f'scaled_{feature}'] = (df[feature] - min_value) / (max_value - min_value)
+
     return df
 
 def serialize_features_to_json(df, output_json_path):
@@ -192,8 +194,8 @@ def process_file(csv_path, output_json_path='output.json'):
 
 # Main execution block
 if __name__ == "__main__":
-    input_csv_path = "/Users/username/Desktop/filename.csv"
-    output_json_path = "/Users/username/Desktop/filename.json"
+    input_csv_path = "./articles.csv"
+    output_json_path = "./articles.json"
     
     # Extract and process features
     df = extract_features_dataframe(input_csv_path)

@@ -4,15 +4,17 @@ import scrapy
 from articlescraper.items import ArticleItem
 import urllib.parse
 import tldextract
+import json
 
 
 class ArticleSpider(scrapy.Spider):
     name = "article"
     article_count = 0 
-    start_urls = [
 
-        # 'https://eu.usatoday.com/story/news/politics/elections/2024/05/02/dlcc-abortion-measures-statehouse-wins-2024/73429279007/',
-    ]
+    def start_requests(self):
+        urls = read_json_data()
+        for url in urls:
+            yield scrapy.Request(url=url, callback=self.parse)
 
     def parse(self, response):
         self.article_count += 1
@@ -21,7 +23,7 @@ class ArticleSpider(scrapy.Spider):
         item['title'] = response.css('h1::text').get(default='No title')
         item['platform'] = self.extract_platform_from_url(response.url)
         item['article_text'] = ' '.join(response.css('article p::text').extract())
-
+        
         yield item
     
     
@@ -34,3 +36,11 @@ class ArticleSpider(scrapy.Spider):
     
 
 
+# Function to read JSON data
+def read_json_data():
+  try:
+    with open('../urls.json', "r") as f:
+      return json.load(f)
+  except FileNotFoundError:
+    print(f"Error: File '{'../urls.json'}' not found.")
+    return None
