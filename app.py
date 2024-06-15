@@ -15,7 +15,7 @@ def serve_index():
    return render_template('index.html')
 
 @app.route('/scrap', methods=['POST'])
-@cross_origin
+@cross_origin()
 def scrap():
     try:
         url = request.json.get('url')
